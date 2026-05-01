@@ -2,13 +2,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from google.colab import files
 uploaded = files.upload()
-df=pd.read_excel("projectdata.xlsx")
+df=pd.read_excel("agri_cloud_cost_data.xlsx")
 df.info()
-service_cost = df.groupby("Service_Type")["Cost_USD"].sum()
-
-print(service_cost)
-plt.figure(figsize=(7,7))
-
+total_cost = df["Cost"].sum()
+print("Total cloud cost:",total_cost)
+cloud_cost = df.groupby("Crop_Type")["Cost"].sum()
+print(cloud_cost)
+monthly_cost = df.groupby("Month")["Cost"].sum()
+print(monthly_cost)
+plt.figure(figsize=(7, 7))
+service_cost = df.groupby("Crop_Type")["Cost"].sum()
 service_cost.plot(
     kind="pie",
     autopct="%1.1f%%"
